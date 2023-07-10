@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='美多商城登录',active='home'">
+<head>
+    <meta charset="utf-8" />
+    <title>美多商城-注册</title>
+    <script type="text/javascript">
+        function checkinput()
+        {
+            if(myform.username.value=="")
+            {
+                alert("请输入用户名");
+                myform.username.focus();
+                return false;
+            }
+            if (myform.pass_word.value=="")
+            {
+                alert("请输入密码");
+                myform.pass_word.focus();
+                return false;
+            }
+
+            if(myform.pass_word.value != myform.pwdconfirm.value){
+                alert("你输入的两次密码不一致，请重新输入！");
+                myform.pass_word.focus();
+                return false;
+            }
+            if (myform.userSex.value=="")
+            {
+                alert("请输入性别");
+                myform.userSex.focus();
+                return false;
+            }
+        }
+       /* function ck() {
+            alert("aa");
+            if ($('#cc').checked == true) {
+                alert("选中");
+            } else {
+                alert('未选中');
+            }
+        }*/
+        function check(){
+            var checkbox = document.getElementById("ch");//选中checkbox的id；
+            if(checkbox.checked==true){//按钮已选中
+                document.getElementById("but").style.backgroundColor="whitesmoke";
+                document.getElementById("but").style.color="#000";
+                document.getElementById("but").removeAttribute("disabled");//移除disabled
+            }else{
+                document.getElementById("but").disadled="disabled";
+            }
+        }
+    </script>
+    <style type="text/css">
+
+        body{
+            color: whitesmoke;
+
+            background-color: rgba(0, 0, 0, 0.06)
+        }
+        .container{
+            /*border-radius: 25px;*/
+            /*box-shadow: 0 0 20px #222;*/
+            width: 450px;
+            height: 500px;
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 200px;
+            background: url(http://localhost:8070/img/13.png) no-repeat;
+        }
+        .right {
+            position: relative;
+            top:45px;
+            text-align: center;
+        }
+        button{
+            background-color: rgba(230, 228, 236, 0.93);
+            border: none;
+            color: rgba(16, 17, 17, 0.34);
+            padding: 10px 70px;
+            text-align: center;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 30px;
+            margin-left: 50px;
+        }
+        /*body {*/
+            /*background: url(http://localhost:8894/user-consumer/templates/img/2.jpg) no-repeat center center fixed;*/
+            /*-webkit-background-size: cover;*/
+            /*-moz-background-size: cover;*/
+            /*-o-background-size: cover;*/
+            /*background-size: cover;*/
+        /*}*/
+    </style>
+</head>
+<body >
+<form action="/register" method="post" name="myform" onsubmit=" return checkinput();" >
+    <div class="container">
+        <div class="right">
+            <h1 align="center">美多用户注册</h1>
+            <p>帐　　号: <input type="text" style="width: 150px" name="uaccount" id="uaccount" placeholder="请输入账号"></p>
+            <p>用　　户: <input type="text" style="width: 150px" name="uname" id="username" placeholder="请输入姓名"></p>
+            <p>密　　码: <input  type="password" style="width: 150px" name="upassword" id="pass_word" placeholder="请输入密码"></p>
+            <p>确认密码: <input   type="password" style="width: 150px" name="pwdconfirm" id="pwdconfirm"  placeholder="请确认密码"></p>
+            <p>性　　别: <input  type="text" style="width: 150px" name="usex" id="userSex" placeholder="请输入性别"></p>
+            <br/><br/>
+            <input type="checkbox" name="agree"  id="ch" onclick="check()"  style="margin-left:5px;display:inline-block;" value="0"/>
+            <span style="font-size:20px;text-align: center;">我已阅读并同意《用户注册协议》</span>
+            <p><button type="submit" value="注册" disabled="disabled" id="but">立即注册</button></p>
+        </div>
+    </div>
+</form>
+</body>
+</html>

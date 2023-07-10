@@ -1,0 +1,86 @@
+/* 把标签默认的间距设为0 */
+body,ul,ol,p,h1,h2,h3,h4,h5,h6,dl,dd,select,input,textarea,form{margin:0;padding:0}
+
+/* 让h标签文字大小继承body的文字设置 */
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+
+/* 去掉列表默认的图标 */
+ul,ol{list-style:none;}
+
+/* 去掉em默认的斜体 */
+em{font-style: normal;}
+
+/* 去掉a标签默认的下划线 */
+a{text-decoration:none;}
+
+
+/* 去掉加链接时产生的框线 */
+img{border:0;}
+
+/* 清除浮动 */
+.clearfix:before,.clearfix:after{content:"";display:table}
+.clearfix:after{clear:both;}
+.clearfix{zoom:1}
+
+/* 浮动 */
+.fl{float:left}
+.fr{float:right}
+
+ * {
+     margin: 0;
+     padding: 0;
+     list-style: none;
+ }
+
+#m-tip {
+}
+
+.m-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: #000;
+    z-index: 2000;
+    width: 35px;
+    height: 100%;
+    font-size: 12px;
+    color: #fff;
+}
+
+.m-sidebar .cart {
+    color: #fff;
+    text-align: center;
+    line-height: 20px;
+    padding: 200px 0 0 0px;
+    top: 100px;
+}
+
+.m-sidebar .cart span {
+    display: block;
+    width: 20px;
+    margin: 0 auto;
+}
+
+.m-sidebar .cart i {
+    width: 35px;
+    height: 35px;
+    display: block;
+}
+
+.u-flyer {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    position: fixed;
+    z-index: 9999;
+}
+
+.circle {
+    width: 10px;
+    height: 10px;
+    background-color: #3c6efd;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}

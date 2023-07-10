@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='美多商城',active='home'"
+	  xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>美多商品-商品详情</title>
+	<link rel="stylesheet" type="text/css" th:href="@{http://localhost:8090/css/reset.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{http://localhost:8090/css/main.css}">
+	<script type="text/javascript" src="http://localhost:8090/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="http://localhost:8090/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="http://localhost:8090/js/slide.js"></script>
+	<script src="http://localhost:8090/js/index.js"></script>
+</head>
+<body>
+
+		<div class="header_con">
+			<div class="header">
+				<div class="welcome fl">欢迎来到美多商城!</div>
+				<div class="fr">
+					<div class="login_btn fl" th:if="${session.uaccount} ne null">
+						<a href="">
+							欢迎您：<em th:text="${session.uaccount}"></em>
+						</a>
+						<span>|</span>
+						<a href="http://localhost:8896/goods/quit">退出</a>
+					</div>
+					<div class="login_btn fl" th:if="${session.uaccount} eq null">
+						<a href="http://localhost:8893/admin/tologin">
+							请您登陆
+						</a>
+					</div>
+					<div class="user_link fl">
+						<span>|</span>
+						<a href="/goods/cartAll">我的购物车</a>
+						<span>|</span>
+						<a href="/goods/getAllorder">我的订单</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<div class="search_bar clearfix">
+		<a th:href="@{'getAll?uaccount='+${session.uaccount}}" class="logo fl"><img src="http://localhost:8894/goods-consumer/templates/img/logo.png"></a>
+		<div class="search_con fl">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+			<input type="button" class="input_btn fr" name="" value="搜索">
+		</div>
+		<!--<div class="guest_cart fr">-->
+			<!--<a href="cart.html" class="cart_name fl">我的购物车</a>-->
+			<!--<div class="goods_count fl" id="show_count">1</div>-->
+		<!--</div>-->
+	</div>
+
+		<form action="/insert" method="post">
+			<div class="navbar_con">
+		<div class="navbar clearfix">
+			<div class="subnav_con fl">
+				<h1>全部商品分类</h1>	
+				<span></span>			
+				<ul class="subnav">
+					<li><a href="#" class="fruit">新鲜水果</a></li>
+					<li><a href="#" class="seafood">海鲜水产</a></li>
+					<li><a href="#" class="meet">猪牛羊肉</a></li>
+					<li><a href="#" class="egg">禽类蛋品</a></li>
+					<li><a href="#" class="vegetables">新鲜蔬菜</a></li>
+					<li><a href="#" class="ice">速冻食品</a></li>
+				</ul>
+			</div>
+			<ul class="navlist fl">
+				<li><a href="getAll">首页</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="breadcrumb">
+		<a href="#">全部分类</a>
+		<span>></span>
+		<a href="#">新鲜水果</a>
+		<span>></span>
+		<a href="#">商品详情</a>
+	</div>
+
+	<form action="/insert" method="post">
+	<div class="goods_detail_con clearfix">
+		<input type="hidden" value="10086" name="uaccount">
+		<div class="goods_detail_pic fl"><img  th:src="${detail.gremain}"></div>
+		<div class="goods_detail_list fr">
+			<input style="top: 1px;display: none" type="text" name="goodid" th:value="${detail.gid}">
+			<input class="deswaw" type="text" style="border:none;font-size:23px;color:#ff3e3e;" name="goodsname" th:value="${detail.gname}">
+			<!--<h3 th:text="${detail.gname}" id="name"></h3>-->
+			<p th:text="${detail.gdetails}"></p>
+			<div class="prize_bar">
+				<span class="show_pirze">¥
+					<input style="border:none; background-color: #fff5f5;font-size:20px;color:#ff3e3e;" readonly type="text" name="price" th:value="${detail.gprice}">
+					<!--<em id="price" th:text="${detail.gprice}"></em>-->
+				</span>
+			</div>
+			<div class="" style="margin-top: 35px">
+				<div class="num_name fl">数 量：</div>
+				<input type="number" value="1" name="num" min="1" max="99" step="1" th:value="1" oninput="if(value>99)value=99">
+			</div>
+
+
+			<div class="total">总价：<em>16元</em></div>
+			<div class="operate_btn">
+				<div class="guest_cart fr">
+					<input  type="submit" value="加入购物车" class="cart_name fl" style="height:35px;vertical-align:middle;text-align:left;background: #ff3e3e;color: whitesmoke;font-family: Microsoft Yahei" >
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</form>
+
+
+			<div class="footer">
+				<div class="foot_link">
+					<a href="#">关于我们</a>
+					<span>|</span>
+					<a href="#">联系我们</a>
+					<span>|</span>
+					<a href="#">招聘人才</a>
+					<span>|</span>
+					<a href="#">友情链接</a>
+				</div>
+				<p>CopyRight © 2019 北京美多商城有限公司 All Rights Reserved</p>
+				<p>电话：010-****888    京ICP备*******8号</p>
+			</div>
+	<div class="add_jump"></div>
+
+
+	<script src="http://localhost:8090/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript">
+		/*<![CDATA[*/
+        $(document).on('click', '#sendArr', function () {
+            var name = ($("#name").html());
+            var price=($("#price").html());
+            alert(name+""+price);
+            $.ajax({
+                type: 'get',
+                dataType: 'json',
+                url: 'http://localhost:8896/goods/cart',
+                data: {
+                    name:name,
+                    price:price,
+                },
+            });
+        });
+	</script>
+		</form>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='美多商城',active='home'"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>美多商城-首页</title>
+    <link rel="stylesheet" type="text/css" th:href="@{http://localhost:8090/css/reset.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{http://localhost:8090/css/main.css}">
+    <script type="text/javascript" src="http://localhost:8090/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="http://localhost:8090/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://localhost:8090/js/slide.js"></script>
+</head>
+<body>
+<div class="header_con">
+    <div class="header">
+        <div class="welcome fl">欢迎来到美多商城!</div>
+        <div class="fr">
+            <div class="login_btn fl" th:if="${session.uaccount} ne null">
+                <a href="">
+                    欢迎您：<em th:text="${session.uaccount}"></em>
+                </a>
+                    <span>|</span>
+                    <a href="/goods/cartAll">我的购物车</a>
+                    <span>|</span>
+                    <a href="/goods/getAllorder">我的订单</a>
+                <span>|</span>
+                <a href="http://localhost:8896/goods/quit">退出</a>
+            </div>
+            <div class="login_btn fl" th:if="${session.uaccount} eq null">
+            <a href="http://localhost:8061/tologin">
+                请您登陆
+            </a>
+        </div>
+
+        </div>
+    </div>
+</div>
+<div class="search_bar clearfix">
+    <a th:href="@{'getAll?uaccount='+${session.uaccount}}" class="logo fl"><img src="http://localhost:8090/img/logo.png"></a>
+    <div class="search_con fl">
+        <form action="/selectByName" method="get">
+
+            <input type="text" class="input_text fl" name="gname" placeholder="搜索商品">
+            <input type="submit" class="input_btn fr" name="" value="搜索">
+        </form>
+    </div>
+
+</div>
+<form action="/goods/shop" method="get">
+<div class="navbar_con">
+    <div class="navbar">
+        <h1 class="fl">全部商品分类</h1>
+        <ul class="navlist fl">
+            <li><a href="#">首页</a></li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="center_con clearfix">
+    <ul class="subnav fl">
+        <li><a href="#model01" class="fruit">新鲜水果</a></li>
+        <li><a href="#model02" class="seafood">海鲜水产</a></li>
+        <li><a href="#model03" class="meet">新鲜蔬菜</a></li>
+        <li><a href="#model04" class="egg">速冻食品</a></li>
+    </ul>
+    <div class="slide fl">
+        <ul class="slide_pics">
+            <li><img src="http://localhost:8090/img/slide.jpg" alt="幻灯片"></li>
+            <li><img src="http://localhost:8090/img/slide02.jpg" alt="幻灯片"></li>
+            <li><img src="http://localhost:8090/img/slide03.jpg" alt="幻灯片"></li>
+            <li><img src="http://localhost:8090/img/slide04.jpg" alt="幻灯片"></li>
+        </ul>
+        <div class="prev"></div>
+        <div class="next"></div>
+        <ul class="points"></ul>
+    </div>
+    <div class="adv fl">
+        <a href="#"><img src="http://localhost:8090/img/adv01.jpg"></a>
+        <a href="#"><img src="http://localhost:8090/img/adv02.jpg"></a>
+    </div>
+</div>
+    <div class="list_model">
+        <div class="list_title clearfix">
+            <h3 class="fl" id="model06">速冻食品</h3>
+            <div class="subtitle fl">
+                <span>|</span>
+                <a href="#">脉动</a>
+                <a href="#">可乐</a>
+                <a href="#">冰冻矿泉水</a>
+            </div>
+    </div>
+    <div class="goods_con clearfix">
+        <div class="goods_banner fl"><img src="http://localhost:8090/img/banner06.jpg"></div>
+        <ul class="goods_list fl">
+            <li th:each="goods:${goods.data.content}">
+                <input style="top: 1px;display: none" type="checkbox" name="che" th:value="${goods.gid}" >
+                <h4 th:text="${goods.gname}"></h4>
+               <a th:href="@{/selectById(gid=${goods.gid})}"><img th:src="${goods.gremain}" ></a>
+               <!-- <a href="javascript:void(0)" onclick="AddCart({$t:[itemid]});">加入购物车</a>-->
+                <div class="prize" th:text="'￥'+${goods.gprice}"></div>
+            </li>
+        </ul>
+    </div>
+        <div>
+            <ul>
+                当前第 <span th:text="${goods.data.number}+1"></span>页&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+                总   <span th:text="${goods.data.totalPages}"></span>页&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+                共   <span th:text="${goods.data.totalElements}"></span> 条&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a th:href="@{/(pageNum=1)}">首页</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a th:if="${goods.data.first}" th:href="@{/(pageNum=1)}">上一页</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a th:if="!${goods.data.first}" th:href="@{/(pageNum=${goods.data.number})}">上一页</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+
+                <a th:if="${goods.data.last}" th:href="@{/(pageNum=${goods.data.totalPages})}">下一页</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a th:if="!${goods.data.last}" th:href="@{/(pageNum=${goods.data.number}+2)}">下一页</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+
+                <a th:href="@{/(pageNum= ${goods.data.totalPages} )}">尾页</a>
+            </ul>
+        </div>
+</div>
+<!--<div class="list_model">-->
+<!--    <div class="list_title clearfix">-->
+<!--        <h3 class="fl" id="model02">海鲜水产</h3>-->
+<!--        <div class="subtitle fl">-->
+<!--            <span>|</span>-->
+<!--            <a href="#">河虾</a>-->
+<!--            <a href="#">扇贝</a>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="goods_con clearfix">-->
+<!--        <div class="goods_banner fl"><img src="http://localhost:8090/img/banner02.jpg"></div>-->
+<!--        <ul class="goods_list fl">-->
+<!--            <li th:each="goods:${goods2}">-->
+<!--                <input style="top: 1px;display: none" type="checkbox" name="che" th:value="${goods.gid}" >-->
+<!--                <h4 th:text="${goods.gname}"></h4>-->
+<!--                <a th:href="@{'http://localhost:8896/goods/detail?gid='+${goods.gid}}"><img th:src="${goods.gremain}" ></a>-->
+<!--                &lt;!&ndash; <a href="javascript:void(0)" onclick="AddCart({$t:[itemid]});">加入购物车</a>&ndash;&gt;-->
+<!--                <div class="prize" th:text="'￥'+${goods.gprice}"></div>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--    <div class="list_model">-->
+<!--        <div class="list_title clearfix">-->
+<!--            <h3 class="fl" id="model01">新鲜水果</h3>-->
+<!--            <div class="subtitle fl">-->
+<!--                <span>|</span>-->
+<!--                <a href="#">鲜芒</a>-->
+<!--                <a href="#">加州提子</a>-->
+<!--                <a href="#">亚马逊牛油果</a>-->
+<!--            </div>-->
+<!--    </div>-->
+
+<!--        <div class="goods_con clearfix">-->
+<!--            <div class="goods_banner fl"><img src="http://localhost:8090/img/banner01.jpg"></div>-->
+<!--            <ul class="goods_list fl">-->
+<!--                <li th:each="goods:${goods3}">-->
+<!--                    <input style="top: 1px;display: none" type="checkbox" name="che" th:value="${goods.gid}" >-->
+<!--                    <h4 th:text="${goods.gname}"></h4>-->
+<!--                    <a th:href="@{'http://localhost:8896/goods/detail?gid='+${goods.gid}}"><img th:src="${goods.gremain}" ></a>-->
+<!--                    &lt;!&ndash; <a href="javascript:void(0)" onclick="AddCart({$t:[itemid]});">加入购物车</a>&ndash;&gt;-->
+<!--                    <div class="prize" th:text="'￥'+${goods.gprice}"></div>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--</div>-->
+
+<!--<div class="list_model">-->
+<!--    <div class="list_title clearfix">-->
+<!--        <h3 class="fl" id="model05">新鲜蔬菜</h3>-->
+<!--        <div class="subtitle fl">-->
+<!--            <span>|</span>-->
+<!--            <a href="#">番茄</a>-->
+<!--            <a href="#">绿色蔬菜</a>-->
+<!--            <a href="#">新鲜胡萝卜</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="goods_con clearfix">-->
+<!--        <div class="goods_banner fl"><img src="http://localhost:8090/img/banner05.jpg"></div>-->
+<!--        <ul class="goods_list fl">-->
+<!--            <li th:each="goods:${goods4}">-->
+<!--                <input style="top: 1px;display: none" type="checkbox" name="che" th:value="${goods.gid}" >-->
+<!--                <h4 th:text="${goods.gname}"></h4>-->
+<!--                <a th:href="@{'http://localhost:8896/goods/detail?gid='+${goods.gid}}"><img th:src="${goods.gremain}" ></a>-->
+<!--                &lt;!&ndash; <a href="javascript:void(0)" onclick="AddCart({$t:[itemid]});">加入购物车</a>&ndash;&gt;-->
+<!--                <div class="prize" th:text="'￥'+${goods.gprice}"></div>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</div>-->
+</form>
+<div class="footer">
+    <div class="foot_link">
+        <a href="#">关于我们</a>
+        <span>|</span>
+        <a href="#">联系我们</a>
+        <span>|</span>
+        <a href="#">招聘人才</a>
+        <span>|</span>
+        <a href="#">友情链接</a>
+    </div>
+    <p>CopyRight © 2019 北京美多商城有限公司 All Rights Reserved</p>
+    <p>电话：010-****888    京ICP备*******8号</p>
+</div>
+<script type="text/javascript" src="http://localhost:8090/js/slideshow.js"></script>
+<script type="text/javascript">
+    BCSlideshow('focuspic');
+    var oFruit = document.getElementById('fruit_more');
+    var oShownum = document.getElementById('show_count');
+
+    var hasorder = localStorage.getItem('order_finish');
+
+    if(hasorder)
+    {
+        oShownum.innerHTML = '2';
+    }
+
+    oFruit.onclick = function(){
+        window.location.href = 'list.html';
+    }
+
+</script>
+</body>
+</html>
